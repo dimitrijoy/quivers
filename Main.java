@@ -1,11 +1,10 @@
 import java.util.ArrayList;
 
 /**
- * The Main class is used for the purpose of implementing
- * and manipulating type-A quivers.
+ * The Main class is used for the purpose of manipulating type-A quivers.
  * 
  * @author  Dimitri Joy
- * @version 1.1
+ * @version 1.2
  * created on 2020-01-26
  */
 class Main {

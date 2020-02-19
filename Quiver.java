@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * mutating vertices, and analyzing the results.
  * 
  * @author  Dimitri Joy
- * @version 1.3
+ * @version 1.4
  * created on 2020-01-26
  */
 class Quiver {
@@ -87,7 +87,7 @@ class Quiver {
      * 
      * @param   v   the mutated vertex
      */
-    private void connectThrough(Vertex v) {
+    private void connect(Vertex v) {
         for (int i = 0; i < arrows.size(); ++i) {
             Arrow a1 = arrows.get(i);
             if (a1.getTerminal() == v) {
@@ -146,7 +146,7 @@ class Quiver {
      */
     public void mutate(Vertex v) {
         updateValue(v);
-        connectThrough(v);
+        connect(v);
         reverseArrows(v);
         deloop();
     }
@@ -185,6 +185,16 @@ class Quiver {
         return true;
     }
 
+    /**
+     * Check whether the quiver has an integer assignment that will remains as integers
+     * after every possible mutation.
+     * 
+     * The algorithm used in hasValidAssignment() provides a quicker method than the exhaustive process
+     * of performing every possible mutation by checking if each vertex yields an integer result after
+     * a single mutation.
+     * 
+     * @return      whether or not the quiver has an integer assignments that will remains as integers
+     */
     public boolean hasValidAssignment() {
         for (int i = 0; i < verticies.size(); ++i) {
             try {
@@ -195,8 +205,13 @@ class Quiver {
         return true;
     }
 
+    /**
+     * Check whether the quiver contains at least one oriented 3-cycle.
+     * 
+     * @return      whether or not the quivers contains an oriented 3-cycle
+     */
     public boolean hasOrientedCycles() { // only concerned with 3-cycles for now
-        // searching for a relationship of this kind: (v1, v2), (v2, v3), (v3, v1)
+        // searches for a relationship of this kind: (v1, v2), (v2, v3), (v3, v1)
         for (int i = 0; i < arrows.size() - 2; ++i) {
             for (int j = i + 1; j < arrows.size() - 1; ++j) {
                 if (arrows.get(i).getTerminal() == arrows.get(j).getBase()) {
