@@ -227,4 +227,68 @@ class Quiver {
         }
         return false;
     }
+
+    /**
+     * Return the verticies of every oriented 3-cycle.
+     * 
+     * @return      the verticies of every oriented 3-cycle
+     */
+    public ArrayList<Vertex[]> findOrientedCycles() {
+        ArrayList<Vertex[]> cycles = new ArrayList<Vertex[]>();
+        // searches for a relationship of this kind: (v1, v2), (v2, v3), (v3, v1)
+        for (int i = 0; i < arrows.size() - 2; ++i) {
+            for (int j = i + 1; j < arrows.size() - 1; ++j) {
+                if (arrows.get(i).getTerminal() == arrows.get(j).getBase()) {
+                    for (int k = j + 1; k < arrows.size(); ++k) {
+                        if (arrows.get(j).getTerminal() == arrows.get(k).getBase()) {
+                            if (arrows.get(i).getBase() == arrows.get(k).getTerminal()) { // nested to improve readability
+                                Vertex cycle[] = {arrows.get(i).getBase(), // stored in an array for use in reducableCycles()
+                                                  arrows.get(j).getBase(), // and similar structure to a tuple
+                                                  arrows.get(k).getBase()};
+                                cycles.add(cycle);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return cycles;
+    }
+
+    /**
+     * Return the mutable verticies of every reducable oriented 3-cycle.
+     * 
+     * @return      the mutable verticies
+     */
+    private ArrayList<Vertex> reducableCycles() {
+        ArrayList<Vertex> mutations = new ArrayList<Vertex>();
+        if (hasOrientedCycles()) {
+            ArrayList<Vertex[]> cycles = findOrientedCycles();
+            for (int i = 0; i < cycles.size(); ++i) { // checks every vertex in every array of verticies
+                for (int j = 0; j < cycles.get(i).length; ++j) {
+                    int counter = 0;
+                    for (int k = 0; k < arrows.size(); ++k) { // counts the number of arrows a vertex shares
+                        if (arrows.get(k).contains(cycles.get(i)[j])) {
+                            ++counter;
+                        }
+                    }
+                    if (counter <= 2) { // no mutable vertex should appear in more than 2 arrows
+                        mutations.add(cycles.get(i)[j]);
+                        break; // prevents adding more than one mutable vertex from the same cycle
+                    }
+                }
+            }
+        }
+        return mutations;
+    }
+
+    /**
+     * Reduce every oriented 3-cycle into an acyclic form.
+     */
+    public void reduceCycles() {
+        ArrayList<Vertex> mutations = reducableCycles();
+        for (int i = 0; i < mutations.size(); ++i) {
+            mutate(mutations.get(i));
+        }
+    }
 }
