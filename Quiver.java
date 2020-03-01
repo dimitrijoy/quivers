@@ -264,11 +264,9 @@ class Quiver {
      * @return      whether or not the quiver has an integer assignments that will remains as integers
      */
     public boolean hasValidAssignment() {
-        Quiver q = new Quiver(this);
-        q.reduceCycles();
-        for (int i = 0; i < q.vertices.size(); ++i) {
+        for (int i = 0; i < vertices.size(); ++i) {
             try {
-                if (updatedValue(q.vertices.get(i)) <= 0)
+                if (updatedValue(vertices.get(i)) <= 0)
                     return false; // only positive integers are allowed
             } catch(Exception e) { return false; }
         }
