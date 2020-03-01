@@ -3,7 +3,7 @@
  * and arrows to form quivers or directed graphs.
  * 
  * @author  Dimitri Joy
- * @version 1.3
+ * @version 1.4
  * created on 2020-01-26
  */
 class Arrow {
@@ -14,12 +14,22 @@ class Arrow {
      * An Arrow is comprised of a base and terminal vertex
      * with an implied direction.
      * 
-     * @param   v1  the base vertex
-     * @param   v2  the terminal vertex
+     * @param v1    the base vertex
+     * @param v2    the terminal vertex
      */
     Arrow(Vertex v1, Vertex v2) {
         base = v1;
         terminal = v2;
+    }
+
+    /**
+     * Create a copy of an existing arrow.
+     * 
+     * @param a     the arrow to be copied
+     */
+    Arrow(Arrow a) {
+        base = new Vertex(a.getBase());
+        terminal = new Vertex(a.getTerminal());
     }
 
     /**
@@ -43,7 +53,7 @@ class Arrow {
     /**
      * Set the base vertex.
      * 
-     * @param   v   the new base vertex
+     * @param v     the new base vertex
      */
     public void setBase(Vertex v) {
         base = v;
@@ -52,7 +62,7 @@ class Arrow {
     /**
      * Set the terminal vertex.
      * 
-     * @param   v   the new terminal vertex
+     * @param v     the new terminal vertex
      */
     public void setTerminal(Vertex v) {
         terminal = v;
@@ -79,7 +89,7 @@ class Arrow {
     /** 
      * Determine if a vertex is in the arrow.
      * 
-     * @param   v   the vertex to be checked
+     * @param v     the vertex to be checked
      * @return      whether or not the vertex was found
      */
     public boolean contains(Vertex v) {
@@ -93,7 +103,7 @@ class Arrow {
     /** 
      * Determine if a vertex in the arrow contains a certain value.
      * 
-     * @param   val the value to be checked
+     * @param val   the value to be checked
      * @return      whether or not the value was found
      */
     public boolean contains(int val) {
@@ -107,7 +117,7 @@ class Arrow {
     /**
      * Determine if both verticies contain the same value.
      * 
-     * @param   val the number to be checked
+     * @param val   the number to be checked
      * @return      whether or not both verticies contain the same value
      */
     public boolean strictlyContains(int val) {
@@ -143,7 +153,7 @@ class Arrow {
     /**
      * Determine if two arrows form a loop.
      * 
-     * @param   a   an arrow to be check
+     * @param a     the arrow to be check
      * @return      whether or not the two arrows form a loop
      */
     public boolean loopsWith(Arrow a) {
