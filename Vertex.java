@@ -9,7 +9,7 @@
  * in conjunction with arrows as a part of a quiver.
  * 
  * @author  Dimitri Joy
- * @version 1.3
+ * @version 1.5
  * created on 2020-01-26
  */
 class Vertex {
@@ -17,9 +17,18 @@ class Vertex {
     private String id;
 
     /**
-     * A Vertex is comprised of a single numeric value.
+     * A vertex comprised of default attributes.
+     */
+    Vertex() {
+        // defaults
+        val = 1;
+        id = "";
+    }
+
+    /**
+     * A vertex comprised of a value and default identifier.
      * 
-     * @param val
+     * @param val   the new value of the vertex
      */
     Vertex(int val) {
         this.val = val;
@@ -27,11 +36,20 @@ class Vertex {
     }
 
     /**
-     * A Vertex is comprised of a single numeric value and (optionally) a string
-     * for identification.
+     * A vertex comprised of an identifer and default value.
+     * 
+     * @param id    the new identifier of the vertex
+     */
+    Vertex(String id) {
+        this.id = id;
+        val = 1;
+    }
+
+    /**
+     * A vertex comprised of a value and identifier.
      * 
      * @param   val the new value of the vertex
-     * @param   id  the new id of the vertex
+     * @param   id  the new identifier of the vertex
      */
     Vertex(int val, String id) {
         this.val = val;
@@ -39,11 +57,10 @@ class Vertex {
     }
 
     /**
-     * A Vertex is comprised of a single numeric value and (optionally) a string
-     * for identification.
+     * A vertex comprised of an identifier and value.
      * 
-     * @param   id  the new value of the vertex
-     * @param   val the new id of the vertex
+     * @param   id  the new identifier of the vertex
+     * @param   val the new value of the vertex
      */
     Vertex(String id, int val) {
         this.id = id;
@@ -51,7 +68,17 @@ class Vertex {
     }
 
     /**
-     * Return the value of the vertex.
+     * Create a copy of an existing vertex.
+     * 
+     * @param   v   the vertex to be copied
+     */
+    Vertex(Vertex v) {
+        this.id = v.id;
+        this.val = v.val;
+    }
+
+    /**
+     * Get the value of the vertex.
      * 
      * @return      the value of the vertex
      */
@@ -62,18 +89,27 @@ class Vertex {
     /**
      * Set the value of the vertex.
      * 
-     * @param   val the new value of the vertex
+     * @param val   the new value of the vertex
      */
     public void setValue(int val) {
         this.val = val;
     }
 
     /**
-     * Set the value of the vertex.
+     * Get the identifier of the vertex.
      * 
-     * @return      the id of the vertex
+     * @return      the identifier of the vertex
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Set the identifier of the vertex.
+     * 
+     * @param id    the new identifier of the vertex
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }
